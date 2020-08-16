@@ -1,38 +1,39 @@
-import { Item } from '../models/item.model.js';
+import { ItemGroup } from '../models/itemGroup.model.js';
 
 export const list = (req, res) => {
-    Item.find()
-        .then(items => res.json(items))
+    ItemGroup.find()
+        .then(groups => res.json(groups))
         .catch(err => res.status(400).json('Error: ' + err));
 }
-//TODO: Attach group object
+//TODO: Attach user object
+
 export const view = (req, res) => {
     const id = req.params.id;
 
-    Item.findById(id)
-        .then(item => res.json(item))
+    ItemGroup.findById(id)
+        .then(group => res.json(group))
         .catch(err => res.status(400).json('Error: ' + err));
 }
 
 export const save = (req, res) => {
-    const item = new Item(req.body);
+    const group = new ItemGroup(req.body);
 
-    item.save()
-        .then(() => res.json(item))
+    group.save()
+        .then(() => res.json(group))
         .catch(err => res.status(400).json('Error: ' + err));
 }
 
 export const update = (req, res) => {
     const id = req.params.id;
 
-    Item.findByIdAndUpdate(id, req.body)
+    ItemGroup.findByIdAndUpdate(id, req.body)
         .then(() => res.json('Success'))
         .catch((err) => res.status(400).json('Error: ' + err));
 }
 
 export const remove = (req, res) => {
     const id = req.params.id;
-    Item.findByIdAndRemove(id).then(() => {
+    ItemGroup.findByIdAndRemove(id).then(() => {
         res.json('Success');
     }).catch((err) => {
         res.status(500).json(err);

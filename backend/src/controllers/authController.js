@@ -1,6 +1,4 @@
-import {Response, Request} from "express";
-
-const User = require('../models/user.model');
+import { User } from '../models/user.model.js';
 
 const handleErrors = (err) => {
     let errors = {
@@ -25,7 +23,7 @@ const handleErrors = (err) => {
     return errors;
 }
 
-const login = async (req, res) => {
+export const login = async (req, res) => {
     const {email, password} = req.body;
 
     console.log(email);
@@ -33,7 +31,7 @@ const login = async (req, res) => {
     res.send('new signup');
 }
 
-const register = async (req, res) => {
+export const register = async (req, res) => {
     const {email, password} = req.body;
 
     try {
@@ -46,11 +44,6 @@ const register = async (req, res) => {
     }
 }
 
-const logout = (req, res) => {
+export const logout = (req, res) => {
     res.send('logout');
-}
-
-
-module.exports = {
-    login, register, logout
 }

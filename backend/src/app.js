@@ -1,19 +1,24 @@
-import express, {Application, NextFunction, Request, Response} from 'express';
+import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
-import {config} from 'dotenv';
-import itemsRouter from "./api-routes/items";
-import authRouter from "./api-routes/auth";
+import compression from 'compression';
+import helmet from 'helmet';
+import dotenv from 'dotenv';
+import itemsRouter from "./api-routes/items.js";
+import authRouter from "./api-routes/auth.js";
+import itemGroupRouter from "./api-routes/itemGroup.js";
 
-config();
+dotenv.config();
 
-const app: Application = express();
-const port: string = process.env.PORT || '5000';
+const app = express();
+const port = process.env.PORT || '5000';
 
 app.use(cors());
 app.use(express.json());
+app.use(helmet());
+app.use(compression());
 
-let uri: string = process.env.MONGODB_URI!;
+let uri = process.env.MONGODB_URI;
 mongoose.connect(uri, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true}).then(() => {
     console.log('MongoDB connection established successfully');
     app.listen(port, () => {
@@ -21,10 +26,11 @@ mongoose.connect(uri, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTo
     });
 });
 
-app.use('/items', itemsRouter);
 app.use(authRouter);
+app.use('/items', itemsRouter);
+app.use('/item-groups', itemGroupRouter);
 
-app.get('/', (req : Request, res: Response, next: NextFunction) => {
+app.get('/', (req , res) => {
     res.send('hello wld');
 })
 

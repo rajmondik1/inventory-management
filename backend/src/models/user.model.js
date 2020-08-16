@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import isEmail from "validator/lib/isEmail";
+import isEmail from 'validator/lib/isEmail.js';
 
 const userSchema = new mongoose.Schema({
     email: {
@@ -18,6 +18,5 @@ const userSchema = new mongoose.Schema({
     timestamps: true,
 });
 
-const User = mongoose.model('User', userSchema);
+export const User = mongoose.model('User', userSchema);
 
-module.exports = User;

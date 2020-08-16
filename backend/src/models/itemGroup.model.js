@@ -1,16 +1,16 @@
 import mongoose from "mongoose";
+import { Item } from './item.model.js'
 
 const itemGroupSchema = new mongoose.Schema({
     name: { type: String, required: true },
     description: {type: String, required: true },
-    item: {
+    items: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Item'
-    }
+        ref: 'Item',
+        required: false
+    }]
 }, {
     timestamps: true,
 });
 
-const ItemGroup = mongoose.model('ItemGroup', itemGroupSchema);
-
-module.exports = ItemGroup;
+export const ItemGroup = mongoose.model('ItemGroup', itemGroupSchema);
