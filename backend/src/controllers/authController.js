@@ -2,7 +2,7 @@ import {Response, Request} from "express";
 
 const User = require('../models/user.model');
 
-const handleErrors = (err: any) => {
+const handleErrors = (err) => {
     let errors = {
         email: '',
         password: ''
@@ -25,7 +25,7 @@ const handleErrors = (err: any) => {
     return errors;
 }
 
-const login = async (req: Request, res: Response) => {
+const login = async (req, res) => {
     const {email, password} = req.body;
 
     console.log(email);
@@ -33,7 +33,7 @@ const login = async (req: Request, res: Response) => {
     res.send('new signup');
 }
 
-const register = async (req: Request, res: Response) => {
+const register = async (req, res) => {
     const {email, password} = req.body;
 
     try {
@@ -46,7 +46,7 @@ const register = async (req: Request, res: Response) => {
     }
 }
 
-const logout = (req: Request, res: Response) => {
+const logout = (req, res) => {
     res.send('logout');
 }
 

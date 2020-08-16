@@ -1,6 +1,6 @@
 import { Router } from "express";
 const itemController = require('../controllers/itemController');
-const router: Router = Router();
+const router = Router();
 
 router.get('/', itemController.list);
 router.get('/:id', itemController.view);
