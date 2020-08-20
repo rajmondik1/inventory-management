@@ -1,10 +1,13 @@
 import React from 'react';
 import './App.css';
 import Layout from "./components/layout";
+import { Container } from 'react-bootstrap';
 
 function App() {
     return (
-        <Layout />
+        <Container>
+            <Layout />
+        </Container>
     );
 }
 

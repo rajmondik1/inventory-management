@@ -1,8 +1,9 @@
 import React from 'react';
-import Header from './header'
-import Footer from "./footer";
-import Main from "./main";
+import Header from './layout/header'
+import Footer from "./layout/footer";
+import Main from "./layout/main";
 import {BrowserRouter as Router, Route } from "react-router-dom";
+import Login from "./user/login.component";
 import Register from "./user/register.component";
 
 
@@ -15,7 +16,8 @@ function Layout() {
                     {/*<Route path="/" exact component={ExercisesList}/>*/}
                     {/*<Route path="/edit/:id" exact component={EditExercise}/>*/}
                     {/*<Route path="/create" exact component={CreateExercise}/>*/}
-                    <Route path="/login" exact component={Register}/>
+                    <Route path="/login" exact component={Login}/>
+                    <Route path="/register" exact component={Register}/>
                 </Main>
 
                 <Footer/>

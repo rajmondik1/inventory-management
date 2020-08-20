@@ -1,5 +1,6 @@
 import React, {Component} from "react";
-import axios from 'axios';
+import {Button} from 'react-bootstrap';
+import userApiClient from "../../api/userApiClient";
 
 export default class Login extends Component {
     constructor(props) {
@@ -11,7 +12,9 @@ export default class Login extends Component {
 
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            title: 'Login',
+            submitText: 'Login'
         };
     }
 
@@ -42,27 +45,23 @@ export default class Login extends Component {
             password: this.state.password,
         }
 
-        console.log(user);
-
-        axios.post('http://localhost:5000/login', user)
-            .then(res => {
-                console.log(res.data)
-                window.location = '/';
-                this.setState({
-                    email: '',
-                    password: ''
-                });
+        userApiClient.login(user).then(() => {
+            // window.location = '/';
+            this.setState({
+                email: '',
+                password: ''
             });
+        });
 
     }
 
     render() {
         return (
             <div>
-                <h3>Register</h3>
+                <h3>{this.state.title}</h3>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
-                        <label>email: </label>
+                        <label>Email</label>
                         <input type='text'
                                required
                                className="form-control"
@@ -71,7 +70,7 @@ export default class Login extends Component {
                         </input>
                     </div>
                     <div className="form-group">
-                        <label>Password: </label>
+                        <label>Password</label>
                         <input type='password'
                                required
                                className="form-control"
@@ -80,7 +79,7 @@ export default class Login extends Component {
                         </input>
                     </div>
                     <div className="form-group">
-                        <input type="submit" value="Create user" className="btn btn-primary"/>
+                        <Button type="submit" className="btn btn-primary">{this.state.submitText}</Button>
                     </div>
                 </form>
             </div>

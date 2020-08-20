@@ -1,36 +1,12 @@
-import React, {Component} from "react";
-import axios from 'axios';
+import Login from "./login.component";
+import userApiClient from "../../api/userApiClient";
 
-export default class Register extends Component {
-    constructor(props) {
-        super(props);
-
-        this.onChangeEmail = this.onChangeEmail.bind(this);
-        this.onChangePassword = this.onChangePassword.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
-
-        this.state = {
-            email: '',
-            password: ''
-        };
-    }
-
+export default class Register extends Login {
     componentDidMount() {
+        super.componentDidMount();
         this.setState({
-            email: '',
-            password: ''
-        })
-    }
-
-    onChangeEmail(e) {
-        this.setState({
-            email: e.target.value
-        });
-    }
-
-    onChangePassword(e) {
-        this.setState({
-            password: e.target.value
+            title: 'Register',
+            submitText: 'Register'
         });
     }
 
@@ -42,48 +18,13 @@ export default class Register extends Component {
             password: this.state.password,
         }
 
-        console.log(user);
+        userApiClient.register(user).then(() => {
+           // window.location = '/';
+           this.setState({
+               email: '',
+               password: ''
+           });
+       });
 
-        axios.post('http://localhost:5000/register', user)
-            .then(res => {
-                console.log(res.data)
-                window.location = '/';
-                this.setState({
-                    email: '',
-                    password: ''
-                });
-            });
-
-    }
-
-    render() {
-        return (
-            <div>
-                <h3>Register</h3>
-                <form onSubmit={this.onSubmit}>
-                    <div className="form-group">
-                        <label>email: </label>
-                        <input type='text'
-                               required
-                               className="form-control"
-                               value={this.state.email}
-                               onChange={this.onChangeEmail}>
-                        </input>
-                    </div>
-                    <div className="form-group">
-                        <label>Password: </label>
-                        <input type='password'
-                               required
-                               className="form-control"
-                               value={this.state.password}
-                               onChange={this.onChangePassword}>
-                        </input>
-                    </div>
-                    <div className="form-group">
-                        <input type="submit" value="Create user" className="btn btn-primary"/>
-                    </div>
-                </form>
-            </div>
-        );
     }
 }
